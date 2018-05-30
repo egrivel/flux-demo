@@ -16,7 +16,7 @@
 
 import React from 'react';
 
-import TodoAction from './TodoAction';
+import TodoActions from './TodoActions';
 import TodoStore from './TodoStore';
 import TodoItem from './TodoItem';
 
@@ -58,7 +58,7 @@ class TodoPage extends React.Component {
 
   // On click handler kicks off the action
   _onButtonClick() {
-    TodoAction.addItem();
+    TodoActions.addItem();
   }
 
   // React render function

@@ -17,7 +17,7 @@
 
 import React from 'react';
 
-import TodoAction from './TodoAction';
+import TodoActions from './TodoActions';
 import TodoStore from './TodoStore';
 
 class TodoItem extends React.Component {
@@ -58,7 +58,7 @@ class TodoItem extends React.Component {
 
   // On click handler kicks off the action
   _onClick() {
-    TodoAction.selectItem(this.props.nr);
+    TodoActions.selectItem(this.props.nr);
   }
 
   // React render function
