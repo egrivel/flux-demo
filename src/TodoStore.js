@@ -1,46 +1,36 @@
 /**
- * This flux store provides a very basic (and very ugly) implementation of
- * maintaining a list of to-do items, as well as the indicator for a
- * currently selected item.
- *
- * Please note that a significant amount of code in this store is really
- * "boilerplate" code, which would typically be implemented through a
- * common superclass or object. The boilerplate is included in this example
- * to show how the "magic" works.
- */
+* This flux store provides a very basic (and very ugly) implementation of
+* maintaining a list of to-do items, as well as the indicator for a
+* currently selected item.
+*
+* Please note that a significant amount of code in this store is really
+* "boilerplate" code, which would typically be implemented through a
+* common superclass or object. The boilerplate is included in this example
+* to show how the "magic" works.
+*/
 
 import AppDispatcher from './AppDispatcher';
 
 import TodoActionTypes from './TodoActionTypes';
 
-// List of items, hard-coded to contain three items at startup
-const _items = [
-  {
-    id: 1,
-    title: 'To-Do Item #1'
-  },
-  {
-    id: 2,
-    title: 'To-Do Item #2'
-  },
-  {
-    id: 3,
-    title: 'To-Do Item #3'
-  },
-];
-// hard-coded to have 3 items at startup
-let _nr_items = 3;
-// selected item
+// List of items
+const _items = [];
+
+// Number of available items
+let _nr_items = 0;
+
+// Currently selected item
 let _selected_item = -1;
 
-function _addItem() {
+function _addItem(item) {
   _nr_items++;
-  _items.push({
-    id: _nr_items,
-    title: 'To-Do Item #' + _nr_items
-  });
+  _items.push(item);
 };
 
+// Select or deselect an item. If the requested item (by index) is the
+// currently selected item, the item is deselected and no other item is
+// selected. If any other items is selected, that will become the selected
+// item and consequently a currently selected item becomes deselected.
 function _selectItem(nr) {
   if (nr === _selected_item) {
     _selected_item = -1;
@@ -63,7 +53,8 @@ const TodoStore = {
   // Boilerplate code to unregister a callback.
   unregisterListener: (cb) => {
     for (let i = 0; i < _nr_listeners; i++) {
-      if (_listeners[i] == cb) {
+
+     if (_listeners[i] == cb) {
         delete _listeners[i];
         _nr_listeners++;
       }
@@ -96,7 +87,7 @@ const TodoStore = {
   handleDispatch: (payload) => {
     switch(payload.actionType) {
       case TodoActionTypes.TODO_ADD:
-        _addItem();
+        _addItem(payload.item);
         TodoStore.emitChange();
         break;
 

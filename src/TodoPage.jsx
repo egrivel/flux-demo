@@ -1,18 +1,18 @@
 /**
- * Sample page for a very basic to-do list.
- *
- * This sample page uses the Flux architecture to maintain the number of
- * to-do items on the page, and renders an unordered list of all the items.
- * The page gets the number of items from the to-do store, and registers
- * itself to listen to that store when it changes. In the very basic sample,
- * the only possible change is a change in the number of items by adding
- * an item.
- *
- * Item addition works by clicking on a button, which will trigger an
- * action which dispatches the addition to the to-do store. The store will
- * add the new item and update itself, emiting a change event to which this
- * component listens.
- */
+* Sample page for a very basic to-do list.
+*
+* This sample page uses the Flux architecture to maintain the number of
+* to-do items on the page, and renders an unordered list of all the items.
+* The page gets the number of items from the to-do store, and registers
+* itself to listen to that store when it changes. In the very basic sample,
+* the only possible change is a change in the number of items by adding
+* an item.
+*
+* Item addition works by clicking on a button, which will trigger an
+* action which dispatches the addition to the to-do store. The store will
+* add the new item and update itself, emiting a change event to which this
+* component listens.
+*/
 
 import React from 'react';
 
@@ -46,6 +46,7 @@ class TodoPage extends React.Component {
   componentDidMount() {
     this._registeredCb = this._getStateFromStores.bind(this);
     TodoStore.registerListener(this._registeredCb);
+    TodoActions.loadItems();
   }
 
   // Standard React lifecycle function.
